@@ -42,7 +42,7 @@ def gettext_with_bi_tags(el):
 page0 = pages[0]
 for el in list(page)[:100]:
     if el.tag == "text":
-        print el.attrib, gettext_with_bi_tags(el)
+        print el.attrib, gettext_with_bi_tags(el).encode('ascii', 'ignore')
 
 
 
