@@ -20,6 +20,10 @@ pages = list(root)
 
 print "The pages are numbered:", [ page.attrib.get("number")  for page in pages ]
 
+for el in list(page)[:100]:
+    if el.tag == "text":
+        print el.attrib
+
 '''
 # this function has to work recursively because we might have "<b>Part1 <i>part 2</i></b>"
 def gettext_with_bi_tags(el):
