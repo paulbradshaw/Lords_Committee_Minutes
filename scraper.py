@@ -20,7 +20,7 @@ pages = list(root)
 
 print "The pages are numbered:", [ page.attrib.get("number")  for page in pages ]
 
-
+'''
 # this function has to work recursively because we might have "<b>Part1 <i>part 2</i></b>"
 def gettext_with_bi_tags(el):
     res = [ ]
@@ -48,7 +48,4 @@ for el in list(page)[:100]:
         print record
 
 
-# If you have many PDF documents to extract data from, the trick is to find what's similar 
-# in the way that the information is presented in them in terms of the top left bottom right 
-# pixel locations.  It's real work, but you can use the position visualizer here:
-#    http://scraperwikiviews.com/run/pdf-to-html-preview-1/
+'''
