@@ -41,7 +41,7 @@ def gettext_with_bi_tags(el):
 # print the first hundred text elements from the first page
 ID = 0
 page0 = pages[0]
-for el in list(page)[:100]:
+for el in list(page0)[:100]:
     if el.tag == "text":
         print el.attrib, gettext_with_bi_tags(el).encode('ascii', 'ignore')
         record = {}
