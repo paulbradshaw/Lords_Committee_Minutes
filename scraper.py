@@ -7,7 +7,7 @@ import scraperwiki
 import urllib2
 import lxml.etree
 
-url = "https://www.parliament.uk/documents/lords-committees/house/Minutes/2015-16/HCMinutes-6-030516.pdf"
+url = "https://www.parliament.uk/documents/lords-committees/house/Minutes/2016-17/HCMinutes-1-290616.pdf"
 pdfdata = urllib2.urlopen(url).read()
 print "The pdf file has %d bytes" % len(pdfdata)
 
