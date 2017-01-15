@@ -39,10 +39,17 @@ def gettext_with_bi_tags(el):
     return "".join(res)
 
 # print the first hundred text elements from the first page
+ID = 0
 page0 = pages[0]
 for el in list(page)[:100]:
     if el.tag == "text":
         print el.attrib, gettext_with_bi_tags(el).encode('ascii', 'ignore')
+        record = {}
+        record["text"] = gettext_with_bi_tags(el).encode('ascii', 'ignore')
+        ID = ID+1
+        record["ID"] = ID
+        scraperwiki.sqlite.save(["ID"],record)
+        print record
 
 
 
