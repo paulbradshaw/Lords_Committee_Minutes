@@ -1,55 +1,45 @@
-###########################################################################################
+######################## 
 # We use a ScraperWiki library called pdftoxml to scrape PDFs.
 # This is an example of scraping a simple PDF.
-###########################################################################################
+########################
 
 import scraperwiki
 import urllib2
 import lxml.etree
 
-url = "https://www.parliament.uk/documents/lords-committees/house/Minutes/2016-17/HCMinutes-1-290616.pdf"
+url = "http://www.madingley.org/uploaded/Hansard_08.07.2010.pdf"
 pdfdata = urllib2.urlopen(url).read()
 print "The pdf file has %d bytes" % len(pdfdata)
 
 xmldata = scraperwiki.pdftoxml(pdfdata)
 print "After converting to xml it has %d bytes" % len(xmldata)
-print "The first 15000 characters are: ", xmldata[:15000]
+print "The first 2000 characters are: ", xmldata[:2000]
 
 root = lxml.etree.fromstring(xmldata)
 pages = list(root)
-
 print "The pages are numbered:", [ page.attrib.get("number")  for page in pages ]
 
-for el in list(page)[:100]:
-    if el.tag == "text":
-        print el.attrib
-
-
-# this function has to work recursively because we might have "<b>Part1 <i>part 2</i></b>"
+# this function has to work recursively because we might have "<bPart1 <ipart 2</i</b"
 def gettext_with_bi_tags(el):
     res = [ ]
     if el.text:
         res.append(el.text)
     for lel in el:
-        res.append("<%s>" % lel.tag)
+        res.append("<%s" % lel.tag)
         res.append(gettext_with_bi_tags(lel))
-        res.append("</%s>" % lel.tag)
+        res.append("</%s" % lel.tag)
         if el.tail:
             res.append(el.tail)
     return "".join(res)
 
 # print the first hundred text elements from the first page
-ID = 0
 page0 = pages[0]
-for el in list(page0)[:100]:
+
+for el in list(page)[:100]:
     if el.tag == "text":
-        print el.attrib, gettext_with_bi_tags(el).encode('ascii', 'ignore')
-        record = {}
-        record["text"] = gettext_with_bi_tags(el).encode('ascii', 'ignore')
-        ID = ID+1
-        record["ID"] = ID
-        scraperwiki.sqlite.save(["ID"],record)
-        print record
+        print el.attrib, gettext_with_bi_tags(el)
 
-
-
+# If you have many PDF documents to extract data from, the trick is to find what's similar 
+# in the way that the information is presented in them in terms of the top left bottom right 
+# pixel locations.  It's real work, but you can use the position visualizer here:
+#    http://scraperwikiviews.com/run/pdf-to-html-preview-1/
