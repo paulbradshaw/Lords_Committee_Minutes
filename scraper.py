@@ -18,13 +18,13 @@ print "The first 5000 characters are: ", xmldata[:5000]
 root = lxml.etree.fromstring(xmldata)
 pages = list(root)
 
-#print "The pages are numbered:", [ page.attrib.get("number")  for page in pages ]
+print "The pages are numbered:", [ page.attrib.get("number")  for page in pages ]
 
 for el in list(page)[:100]:
     if el.tag == "text":
         print el.attrib
 
-'''
+
 # this function has to work recursively because we might have "<b>Part1 <i>part 2</i></b>"
 def gettext_with_bi_tags(el):
     res = [ ]
@@ -43,13 +43,13 @@ page0 = pages[0]
 ID = 0
 for el in list(page)[:100]:
     if el.tag == "text":
-        print el.attrib, gettext_with_bi_tags(el)
+        print el.attrib #, gettext_with_bi_tags(el)
         record = {}
-        record["text"] = gettext_with_bi_tags(el)
+        #record["text"] = gettext_with_bi_tags(el)
         ID = ID+1
         record["ID"] = ID
         scraperwiki.sqlite.save(["ID"],record)
         print record
 
 
-'''
+
