@@ -18,7 +18,7 @@ print "The first 5000 characters are: ", xmldata[:5000]
 root = lxml.etree.fromstring(xmldata)
 pages = list(root)
 
-print "The pages are numbered:", [ page.attrib.get("number")  for page in pages ]
+#print "The pages are numbered:", [ page.attrib.get("number")  for page in pages ]
 
 for el in list(page)[:100]:
     if el.tag == "text":
