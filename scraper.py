@@ -39,9 +39,9 @@ ID = 0
 for el in list(page0)[:100]:
     print el.tag
     if el.tag == "text":
-        print el.attrib, gettext_with_bi_tags(el)
+        print el.attrib, gettext_with_bi_tags(el).encode('ascii', 'ignore')
         record = {}
-        record["text"] = gettext_with_bi_tags(el)
+        record["text"] = gettext_with_bi_tags(el).encode('ascii', 'ignore')
         ID = ID+1
         record["ID"] = ID
         scraperwiki.sqlite.save(["ID"],record)
